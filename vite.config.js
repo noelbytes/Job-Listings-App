@@ -8,6 +8,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss()], // Used to enable React and TailwindCSS support in Vite
   server: {
     port: 3000, // Specify the port number for the development server
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true, 
+        rewrite: (path) => path.replace(/^\/api/, ''), // Remove /api prefix when forwarding requests to the target server
+      }
+    }
   },
   // content: [
   //   "./index.html",
