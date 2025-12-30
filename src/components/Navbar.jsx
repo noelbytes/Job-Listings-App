@@ -1,46 +1,48 @@
+import { Link } from 'react-router-dom'; // Link is basically used to navigate between different routes in a React application without reloading the page, as opposed to a regular anchor tag which would cause a full page reload. Change any instance of <a> to <Link> and to to to.
+// In order to indicate which link is active, we can use the NavLink component from react-router-dom.
+import { NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 
 const Navbar = () => {
-  return (
-    <nav className="bg-indigo-700 border-b border-indigo-500"> {/* VS Code shortcut: Select class and then press Ctrl+Shift+L to change every instance of class to className */}
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                    <div className="flex h-20 items-center justify-between">
-                        <div
-                            className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
-                        >
-                            {/* Logo */}
-                            <a className="flex flex-shrink-0 items-center mr-4" href="/index.html">
-                                <img
-                                    className="h-10 w-auto"
-                                    src={logo}
-                                    alt="React Jobs"
-                                />
-                                <span className="hidden md:block text-white text-2xl font-bold ml-2">React Jobs</span>
-                            </a>
-                            <div className="md:ml-auto">
-                                <div className="flex space-x-2">
-                                    <a
-                                        href="/index.html"
-                                        className="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                                    >Home</a
-                                    >
-                                    <a
-                                        href="/jobs.html"
-                                        className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                                    >Jobs</a
-                                    >
-                                    <a
-                                        href="/add-job.html"
-                                        className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                                    >Add Job</a
-                                    >
-                                </div>
+    const linkClass = ({ isActive }) => isActive ? 'bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2' : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+
+    return (
+        <nav className="bg-indigo-700 border-b border-indigo-500"> {/* VS Code shortcut: Select class and then press Ctrl+Shift+L to change every instance of class to className */}
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                <div className="flex h-20 items-center justify-between">
+                    <div
+                        className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
+                    >
+                        {/* Logo */}
+                        <NavLink className="flex flex-shrink-0 items-center mr-4" to="/">
+                            <img
+                                className="h-10 w-auto"
+                                src={logo}
+                                alt="React Jobs"
+                            />
+                            <span className="hidden md:block text-white text-2xl font-bold ml-2">React Jobs</span>
+                        </NavLink>
+                        <div className="md:ml-auto">
+                            <div className="flex space-x-2">
+                                <NavLink
+                                    to="/"
+                                    className={linkClass}
+                                >Home</NavLink>
+                                <NavLink
+                                    to="/jobs"
+                                    className={linkClass}
+                                >Jobs</NavLink>
+                                <NavLink
+                                    to="/add-job"
+                                    className={linkClass}
+                                >Add Job</NavLink>
                             </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-  )
+            </div>
+        </nav>
+    )
 }
 
 export default Navbar
