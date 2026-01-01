@@ -8,6 +8,7 @@ import ViewAllJobs from "./components/ViewAllJobs"
 import HomePage from './pages/HomePage'
 import JobsPage from './pages/JobsPage'
 import NotFoundPage from './pages/NotFoundPage'
+import JobPage from './pages/JobPage'
 
 // Breaking this down
 // createBrowserRouter: This function creates a router instance that uses the HTML5 history API to keep your UI in sync with the URL.
@@ -20,6 +21,8 @@ const router = createBrowserRouter(
             {/* Any routes that you put in here are going to be rendered inside the MainLayout */}
             <Route index element={<HomePage />} />
             <Route path='/jobs' element={<JobsPage />} />
+            {/* : basically signifies that the variable is dynamic */}
+            <Route path='/jobs/:id' element={<JobPage />} />
             {/* The * here will match any route that doesn't match the above routes */}
             <Route path='*' element={<NotFoundPage />} />
         </Route>
