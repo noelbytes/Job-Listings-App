@@ -2,6 +2,7 @@
 import { useState } from 'react';
 // To redirect after form submission, we can use the useNavigate hook from react-router-dom
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddJobPage = ({ addJobSubmit }) => {
     const [title, setTitle] = useState('');
@@ -36,6 +37,8 @@ const AddJobPage = ({ addJobSubmit }) => {
 
         addJobSubmit(newJob);
 
+        toast.success('Job added successfully'); // Show success toast notification
+        
         return navigate('/jobs'); // Redirect to the /jobs page after form submission
     }
 

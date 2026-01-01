@@ -4,6 +4,7 @@ import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
 // import Spinner from '../components/Spinner';
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Importing toast from react-toastify for notifications
 
 const JobPage = ({ deleteJob }) => {
     const { id } = useParams(); // useParams is a hook that returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>.
@@ -38,6 +39,8 @@ const JobPage = ({ deleteJob }) => {
 
         deleteJob(jobId);
 
+        toast.success('Job deleted successfully'); // Show success toast notification
+        
         navigate('/jobs'); // Redirect to the /jobs page after deletion
     }
 
