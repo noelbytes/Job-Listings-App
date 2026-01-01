@@ -1,7 +1,9 @@
 // For forms, we need to use state, since the values of the form fields will change, we need to keep track of those values in state.
 import { useState } from 'react';
+// To redirect after form submission, we can use the useNavigate hook from react-router-dom
+import { useNavigate } from 'react-router-dom';
 
-const AddJobPage = () => {
+const AddJobPage = ({ addJobSubmit }) => {
     const [title, setTitle] = useState('');
     const [type, setType] = useState('Full-Time');
     const [location, setLocation] = useState('');
@@ -11,6 +13,8 @@ const AddJobPage = () => {
     const [companyDescription, setCompanyDescription] = useState('');
     const [contactEmail, setContactEmail] = useState('');
     const [contactPhone, setContactPhone] = useState('');
+
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
     const submitForm = (event) => {
         event.preventDefault(); // Prevent the default form submission behavior, i.e. page reload
@@ -30,7 +34,9 @@ const AddJobPage = () => {
             }
         }
 
-        console.log(newJob);
+        addJobSubmit(newJob);
+
+        return navigate('/jobs'); // Redirect to the /jobs page after form submission
     }
 
     return (
