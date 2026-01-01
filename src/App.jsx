@@ -12,10 +12,31 @@ import JobPage, { jobLoader } from './pages/JobPage'
 import AddJobPage from './pages/AddJobPage'
 
 const App = () => {
-    const addJob = (newJob) => {
-        console.log(newJob);
+    // Add a new job
+    const addJob = async (newJob) => {
+        // console.log(newJob);
+
+        const res = await fetch('/api/jobs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newJob)
+        });
+
+        return;
+    };
+
+    // Delete Job
+    const deleteJob = async (id) => {
+        // console.log('delete', id);
+        const res = await fetch(`/api/jobs/${id}`, {
+            method: 'DELETE'
+        });
+        
+        return;
     }
-    
+
     // Breaking this down
     // createBrowserRouter: This function creates a router instance that uses the HTML5 history API to keep your UI in sync with the URL.
     // createRoutesFromElements: This function creates route configuration from React elements.
@@ -28,7 +49,7 @@ const App = () => {
                 <Route index element={<HomePage />} />
                 <Route path='/jobs' element={<JobsPage />} />
                 {/* : basically signifies that the variable is dynamic. The loader function fetches the data for the route before the component renders */}
-                <Route path='/jobs/:id' element={<JobPage />} loader={jobLoader} />
+                <Route path='/jobs/:id' element={<JobPage deleteJob={ deleteJob } />} loader={jobLoader} />
                 {/* The * here will match any route that doesn't match the above routes */}
                 <Route path='/add-job' element={< AddJobPage addJobSubmit={addJob} />} />
                 <Route path='*' element={<NotFoundPage />} />
