@@ -10,6 +10,7 @@ import JobsPage from './pages/JobsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import JobPage, { jobLoader } from './pages/JobPage'
 import AddJobPage from './pages/AddJobPage'
+import EditJobPage from './pages/EditJobPage'
 
 const App = () => {
     // Add a new job
@@ -33,9 +34,21 @@ const App = () => {
         const res = await fetch(`/api/jobs/${id}`, {
             method: 'DELETE'
         });
-        
+
         return;
     }
+
+    // Update Job
+    const updateJob = async (job) => {
+        const res = await fetch(`/api/jobs/${job.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(job),
+        });
+        return;
+    };
 
     // Breaking this down
     // createBrowserRouter: This function creates a router instance that uses the HTML5 history API to keep your UI in sync with the URL.
@@ -49,9 +62,19 @@ const App = () => {
                 <Route index element={<HomePage />} />
                 <Route path='/jobs' element={<JobsPage />} />
                 {/* : basically signifies that the variable is dynamic. The loader function fetches the data for the route before the component renders */}
-                <Route path='/jobs/:id' element={<JobPage deleteJob={ deleteJob } />} loader={jobLoader} />
+                <Route path='/jobs/:id'
+                    element={<JobPage deleteJob={deleteJob} />}
+                    loader={jobLoader}
+                />
                 {/* The * here will match any route that doesn't match the above routes */}
-                <Route path='/add-job' element={< AddJobPage addJobSubmit={addJob} />} />
+                <Route path='/add-job'
+                    element={< AddJobPage addJobSubmit={addJob} />}
+                />
+                {/* We'll be using job loader for the edit page, since we'll have to fetch the data in order to edit it */}
+                <Route path='/edit-job/:id'
+                    element={<EditJobPage updateJobSubmit={ updateJob }/>}
+                    loader={jobLoader}
+                />
                 <Route path='*' element={<NotFoundPage />} />
             </Route>
         )
